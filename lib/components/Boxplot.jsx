@@ -5,6 +5,16 @@ class Boxplot extends React.Component {
         let component = this,
             stats = this.props.stats
 
+        const plotStyle = {
+            stroke: this.props.mainColor,
+            fill: this.props.mainColor
+        }
+
+        const medianStyle = {
+            stroke: this.props.medianColor,
+            fill: this.props.medianColor
+        }
+
         let xMax, horizScaleFactor, vertScaleFactor, transform
         if (this.props.orientation == 'vertical') {
             xMax = this.props.width
@@ -32,7 +42,6 @@ class Boxplot extends React.Component {
                 `translate (0, ${this.props.height}) ` +
                 'rotate(-90)'
         }
-
         let xMin = 0,
             xCenter = xMax / 2
 
@@ -48,7 +57,7 @@ class Boxplot extends React.Component {
                         strokeWidth={
                             this.props.whiskerStrokeWidth / horizScaleFactor
                         }
-                        style={this.props.tickStyle}
+                        style={plotStyle}
                     />
                     <line
                         key="whisker-low"
@@ -59,7 +68,7 @@ class Boxplot extends React.Component {
                         strokeWidth={
                             this.props.whiskerStrokeWidth / vertScaleFactor
                         }
-                        style={this.props.whiskerStyle}
+                        style={plotStyle}
                     />
                     <rect
                         key="box"
@@ -68,7 +77,7 @@ class Boxplot extends React.Component {
                         y={stats.quartile1}
                         height={stats.quartile3 - stats.quartile1}
                         strokeWidth="0"
-                        style={this.props.boxStyle}
+                        style={plotStyle}
                     />
                     <line
                         key="median"
@@ -79,7 +88,7 @@ class Boxplot extends React.Component {
                         strokeWidth={
                             this.props.medianStrokeWidth / horizScaleFactor
                         }
-                        style={this.props.medianStyle}
+                        style={medianStyle}
                     />
                     <line
                         key="whisker-high"
@@ -90,7 +99,7 @@ class Boxplot extends React.Component {
                         strokeWidth={
                             this.props.whiskerStrokeWidth / vertScaleFactor
                         }
-                        style={this.props.whiskerStyle}
+                        style={plotStyle}
                     />
                     <line
                         key="tick-high"
@@ -101,7 +110,7 @@ class Boxplot extends React.Component {
                         strokeWidth={
                             this.props.whiskerStrokeWidth / horizScaleFactor
                         }
-                        style={this.props.tickStyle}
+                        style={plotStyle}
                     />
                     {stats.outliers.map((outlier, index) => (
                         <ellipse
@@ -113,7 +122,7 @@ class Boxplot extends React.Component {
                                 component.props.outlierRadius / horizScaleFactor
                             }
                             strokeWidth="0"
-                            style={component.props.outlierStyle}
+                            style={plotStyle}
                         />
                     ))}
                 </g>
