@@ -24,8 +24,14 @@ class ChartLines extends React.Component {
 const Line = styled.div`
     position: absolute;
     left: ${({ leftMargin }) => leftMargin}px;
-    border-left: 1px dotted #cccccc;
+    border-left: 1px dotted #888888;
     height: ${({ height }) => height}px;
+    color: #888888;
+    font-size: 14px;
+`
+
+const LineLabel = styled.div`
+    padding-left: 5px;
 `
 
 class BoxplotChart extends React.Component {
@@ -33,7 +39,7 @@ class BoxplotChart extends React.Component {
         super(props)
         this.state = {
             containerWidth: 400,
-            containerHeight: 400
+            containerHeight: 0
         }
     }
 
@@ -66,21 +72,14 @@ class BoxplotChart extends React.Component {
             lineElements.push(
                 <Line
                     leftMargin={leftMargin}
-                    height={this.state.containerHeight}
+                    height={
+                        30 +
+                        this.props.statsToPlot.length *
+                            (this.props.boxHeight + 10)
+                    }
                 >
-                    {lineValue}
+                    <LineLabel>{lineValue}</LineLabel>
                 </Line>
-                // <div
-                //     className="value-line"
-                //     style={{
-                //         position: 'absolute',
-                //         left: leftMargin,
-                //         borderLeft: '1px dotted #cccccc',
-                //         height: this.state.containerHeight
-                //     }}
-                // >
-                //     {lineValue}
-                // </div>
             )
         }
         return lineElements
