@@ -173,7 +173,7 @@ class Boxplot extends React.Component {
 
 Boxplot.defaultProps = {
     orientation: 'vertical',
-    style: { strokeOpacity: 1, fillOpacity: 0.75 },
+    style: { strokeOpacity: 1, fillOpacity: 1.0 },
     // tickStyle: { stroke: 'black', strokeDasharray: '2,2' },
     tickStyle: { stroke: 'black' },
     whiskerStrokeWidth: 1,

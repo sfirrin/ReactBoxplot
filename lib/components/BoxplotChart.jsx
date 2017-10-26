@@ -1,4 +1,5 @@
 import React from 'react'
+import styled from 'styled-components'
 import LabelledBoxplot from './LabelledBoxplot'
 
 class ChartLines extends React.Component {
@@ -19,6 +20,13 @@ class ChartLines extends React.Component {
         )
     }
 }
+
+const Line = styled.div`
+    position: absolute;
+    left: ${({ leftMargin }) => leftMargin}px;
+    border-left: 1px dotted #cccccc;
+    height: ${({ height }) => height}px;
+`
 
 class BoxplotChart extends React.Component {
     constructor(props) {
@@ -44,26 +52,35 @@ class BoxplotChart extends React.Component {
         let lineIncrements = 10
         let lineElements = []
         for (
-            let lineValue = 0;
+            let lineValue = this.props.min;
             lineValue < this.props.max;
             lineValue += lineIncrements
         ) {
-            const incrementProportion = lineValue / this.props.max
+            const incrementProportion =
+                (lineValue - this.props.min) / (this.props.max - this.props.min)
             const labelWidths =
                 this.state.containerWidth * this.props.labelProportion
             const leftMargin =
                 labelWidths +
                 incrementProportion * (this.state.containerWidth - labelWidths)
             lineElements.push(
-                <line
-                    y1={0}
-                    y2={this.state.containerHeight}
-                    x1={leftMargin}
-                    x2={leftMargin}
-                    stroke={'#cccccc'}
-                    strokeWidth={1}
-                    key={lineValue}
-                />
+                <Line
+                    leftMargin={leftMargin}
+                    height={this.state.containerHeight}
+                >
+                    {lineValue}
+                </Line>
+                // <div
+                //     className="value-line"
+                //     style={{
+                //         position: 'absolute',
+                //         left: leftMargin,
+                //         borderLeft: '1px dotted #cccccc',
+                //         height: this.state.containerHeight
+                //     }}
+                // >
+                //     {lineValue}
+                // </div>
             )
         }
         return lineElements
@@ -84,20 +101,12 @@ class BoxplotChart extends React.Component {
                             this.props.statsToPlot.length * this.props.boxHeight
                     }}
                 >
-                    <svg
-                        style={{
-                            width: this.state.containerWidth,
-                            height:
-                                this.props.statsToPlot.length *
-                                this.props.boxHeight
-                        }}
-                    >
-                        {this.makeLines()}
-                    </svg>
+                    {this.makeLines()}
                 </div>
                 <div
                     className="boxplots"
                     ref={element => (this.containerNode = element)}
+                    style={{ paddingTop: 30 }}
                 >
                     {this.props.statsToPlot.map(itemProps => {
                         return (
