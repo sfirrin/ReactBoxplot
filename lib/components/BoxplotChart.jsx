@@ -2,25 +2,6 @@ import React from 'react'
 import styled from 'styled-components'
 import LabelledBoxplot from './LabelledBoxplot'
 
-class ChartLines extends React.Component {
-    render() {
-        return (
-            <div>
-                <svg>
-                    <line
-                        x1={0}
-                        x2={0}
-                        y1={0}
-                        y2={1000}
-                        strokeWidth={1}
-                        stroke={'#000000'}
-                    />
-                </svg>
-            </div>
-        )
-    }
-}
-
 const Line = styled.div`
     position: absolute;
     left: ${({ leftMargin }) => leftMargin}px;
@@ -90,7 +71,10 @@ class BoxplotChart extends React.Component {
         const labelWidths =
             this.state.containerWidth * this.props.labelProportion
         return (
-            <div style={{ width: '100%' }}>
+            <div
+                style={{ width: '100%', clear: 'both' }}
+                className="boxplot-chart"
+            >
                 <div
                     className="lines"
                     style={{
@@ -107,7 +91,7 @@ class BoxplotChart extends React.Component {
                     ref={element => (this.containerNode = element)}
                     style={{ paddingTop: 30 }}
                 >
-                    {this.props.statsToPlot.map(itemProps => {
+                    {this.props.statsToPlot.map((itemProps, index) => {
                         return (
                             <LabelledBoxplot
                                 {...itemProps}
@@ -117,6 +101,9 @@ class BoxplotChart extends React.Component {
                                 min={this.props.min}
                                 max={this.props.max}
                                 orientation={'horizontal'}
+                                index={
+                                    this.props.showIndices ? index + 1 : null
+                                }
                             />
                         )
                     })}
@@ -127,7 +114,8 @@ class BoxplotChart extends React.Component {
 }
 
 BoxplotChart.defaultProps = {
-    labelProportion: 0.2
+    labelProportion: 0.2,
+    showIndices: true
 }
 
 export default BoxplotChart

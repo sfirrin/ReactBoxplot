@@ -19,9 +19,16 @@ class LabelledBoxplot extends React.Component {
         }
         // console.log(labelStyle)
         const plotWidth = this.props.width - this.props.labelWidth
+        let labelText = this.props.label
+        if (this.props.index) {
+            labelText = `${this.props.index}. ${labelText}`
+        }
+        console.log(this)
         return (
             <BoxplotDiv>
-                <div style={labelStyle}>{this.props.label}</div>
+                <div className="boxplot-label" style={labelStyle}>
+                    {labelText}
+                </div>
                 <Boxplot {...this.props} width={plotWidth} />
             </BoxplotDiv>
         )
