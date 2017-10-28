@@ -29,10 +29,10 @@ class BoxplotChart extends React.Component {
             containerWidth: this.containerNode.clientWidth,
             containerHeight: this.containerNode.clientHeight
         })
-        console.log(
-            this.containerNode.clientHeight,
-            this.containerNode.scrollHeight
-        )
+        // console.log(
+        //     this.containerNode.clientHeight,
+        //     this.containerNode.scrollHeight
+        // )
     }
 
     makeLines() {

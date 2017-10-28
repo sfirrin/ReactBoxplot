@@ -23,7 +23,7 @@ class LabelledBoxplot extends React.Component {
         if (this.props.index) {
             labelText = `${this.props.index}. ${labelText}`
         }
-        console.log(this)
+        // console.log(this)
         return (
             <BoxplotDiv>
                 <div className="boxplot-label" style={labelStyle}>
