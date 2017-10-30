@@ -1,5 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
+
 import LabelledBoxplot from './LabelledBoxplot'
 
 const Line = styled.div`
@@ -36,7 +38,7 @@ class BoxplotChart extends React.Component {
     }
 
     makeLines() {
-        let lineIncrements = 10
+        let lineIncrements = this.props.lineIncrements
         let lineElements = []
         for (
             let lineValue = this.props.min;
@@ -92,7 +94,8 @@ class BoxplotChart extends React.Component {
                     style={{ paddingTop: 30 }}
                 >
                     {this.props.statsToPlot.map((itemProps, index) => {
-                        return (
+                        console.log('item props', itemProps)
+                        const boxplot = (
                             <LabelledBoxplot
                                 {...itemProps}
                                 labelWidth={labelWidths}
@@ -104,8 +107,17 @@ class BoxplotChart extends React.Component {
                                 index={
                                     this.props.showIndices ? index + 1 : null
                                 }
+                                lightenAmount={this.props.lightenAmount || 0}
                             />
                         )
+                        if (this.props.links) {
+                            return (
+                                <Link to={this.props.urlFunction(itemProps)}>
+                                    {boxplot}
+                                </Link>
+                            )
+                        }
+                        return boxplot
                     })}
                 </div>
             </div>
@@ -115,7 +127,8 @@ class BoxplotChart extends React.Component {
 
 BoxplotChart.defaultProps = {
     labelProportion: 0.2,
-    showIndices: true
+    showIndices: true,
+    lineIncrements: 10
 }
 
 export default BoxplotChart

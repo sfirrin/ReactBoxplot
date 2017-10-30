@@ -1,4 +1,5 @@
 import React from 'react'
+import { lighten } from 'polished'
 
 class Boxplot extends React.Component {
     render() {
@@ -6,8 +7,8 @@ class Boxplot extends React.Component {
             stats = this.props.stats
 
         const plotStyle = {
-            stroke: this.props.mainColor,
-            fill: this.props.mainColor
+            stroke: lighten(this.props.lightenAmount, this.props.mainColor),
+            fill: lighten(this.props.lightenAmount, this.props.mainColor)
         }
 
         const medianStyle = {
@@ -183,7 +184,8 @@ Boxplot.defaultProps = {
     medianStrokeWidth: 2,
     medianStyle: { stroke: 'white' },
     outlierRadius: 2.5,
-    outlierStyle: { stroke: 'black', fill: 'black' }
+    outlierStyle: { stroke: 'black', fill: 'black' },
+    lightenAmount: 0.15
 }
 
 export default Boxplot

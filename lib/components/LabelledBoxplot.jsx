@@ -29,7 +29,11 @@ class LabelledBoxplot extends React.Component {
                 <div className="boxplot-label" style={labelStyle}>
                     {labelText}
                 </div>
-                <Boxplot {...this.props} width={plotWidth} />
+                <Boxplot
+                    {...this.props}
+                    width={plotWidth}
+                    lightenAmount={this.props.lightenAmount || 0.0}
+                />
             </BoxplotDiv>
         )
     }
