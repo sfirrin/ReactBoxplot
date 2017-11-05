@@ -7,7 +7,7 @@ const BoxplotDiv = styled.div`
     padding: 5px;
     cursor: pointer;
     &:hover {
-        background: rgba(240, 240, 240, 1);
+        background: rgba(0, 0, 0, 0.07);
         z-index: -1;
     }
 `
